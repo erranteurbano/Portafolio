@@ -18,7 +18,7 @@ const geistMono = localFont({
 
 // Metadatos de la aplicación
 export const metadata: Metadata = {
-  title: "Portafolio de Mena Dev",
+  title: " Mena Dev",
   description:
     "Explora los proyectos y habilidades de Mena Dev, un desarrollador con experiencia en frontend y backend, utilizando tecnologías modernas como React, Tailwind CSS, y Next.js.",
 };

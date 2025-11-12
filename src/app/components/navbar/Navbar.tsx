@@ -43,15 +43,15 @@ const Navbar: React.FC = () => {
   );
 
   return (
-    <motion.nav 
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'dark:bg-gray-900/80 dark:backdrop-blur-lg dark:shadow-lg bg-white/80 backdrop-blur-lg shadow-lg' 
-          : 'bg-transparent'
-      }`}
-    >
+    <motion.nav
+    initial={{ y: -100 }}
+    animate={{ y: 0 }}
+    className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      scrolled || isOpen
+        ? 'dark:bg-gray-900 dark:backdrop-blur-lg dark:shadow-lg bg-white backdrop-blur-lg shadow-lg'
+        : 'bg-transparent'
+    }`}
+  >  
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
@@ -100,26 +100,32 @@ const Navbar: React.FC = () => {
 
         {/* Mobile Menu */}
         <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ 
-            opacity: isOpen ? 1 : 0, 
-            height: isOpen ? 'auto' : 0 
-          }}
-          className="md:hidden overflow-hidden"
-        >
-          <div className="py-2 space-y-2">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="block px-4 py-2 text-purple-800 dark:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/50 rounded-lg"
-                onClick={() => setIsOpen(false)}
-              >
-                {item.name}
-              </a>
-            ))}
-          </div>
-        </motion.div>
+            initial={{ opacity: 0, height: 0 }}
+            animate={{
+              opacity: isOpen ? 1 : 0,
+              height: isOpen ? 'auto' : 0,
+            }}
+            className={`md:hidden overflow-hidden transition-all duration-300 ${
+              isOpen
+                ? 'bg-white dark:bg-gray-900' 
+                : scrolled
+                ? 'dark:bg-gray-900/80 dark:backdrop-blur-lg dark:shadow-lg bg-white/80 backdrop-blur-lg shadow-lg'
+                : 'bg-transparent'
+            }`}
+          >
+            <div className="py-2 space-y-2">
+              {navItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="block px-4 py-2 text-purple-800 dark:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/50 rounded-lg"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+          </motion.div>
       </div>
     </motion.nav>
   );
