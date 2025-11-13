@@ -118,11 +118,12 @@ const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
+  
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch('https://portfolio-vlch.onrender.com/api/v1/projects');
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        const response = await fetch(`${apiUrl}/api/v1/projects`);
         if (!response.ok) {
           throw new Error('Error al cargar los proyectos');
         }
@@ -138,9 +139,10 @@ const Projects: React.FC = () => {
         setLoading(false);
       }
     };
-
+  
     fetchProjects();
   }, []);
+  
 
   const filteredProjects = useMemo(() => {
     return projects.filter(project => 
